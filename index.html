@@ -43,6 +43,13 @@
       <p class="arabic-verse">
         إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَوْقُوتًا
       </p>
+      <!--
+        TODO: add audio file src
+      -->
+      <audio controls autoplay style="display: none">
+        <source src="" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
     </div>
 
     <div class="container">
@@ -53,73 +60,18 @@
       <div class="sec-city-date">
         <div class="city">
           <i class="fa-regular fa-city" style="font-weight: bold"></i>
-          <h3>Cairo</h3>
+          <h3></h3>
         </div>
-        <p>April 24 ,2025</p>
-      </div>
-      <div class="times">
-        <div class="box">
-          <div class="prayer">
-            <img src="Images/icons-sun.png" alt="" />
-            <h3>Fajr</h3>
-          </div>
-          <div class="time">
-            <i class="fa-regular fa-clock"></i>
-            <p>04:36 Pm</p>
-          </div>
-        </div>
-        <div class="box">
-          <div class="prayer">
-            <img src="Images/icons-sun.png" alt="" />
-            <h3>Sunrise</h3>
-          </div>
-          <div class="time">
-            <i class="fa-regular fa-clock"></i>
-            <p>04:36 Pm</p>
-          </div>
-        </div>
-        <div class="box">
-          <div class="prayer">
-            <img src="Images/icons-sun-only.png" alt="" />
-            <h3>Dhuhr</h3>
-          </div>
-          <div class="time">
-            <i class="fa-regular fa-clock"></i>
-            <p>04:36 Pm</p>
-          </div>
-        </div>
-        <div class="box">
-          <div class="prayer">
-            <img src="Images/icons-sun.png" alt="" />
-            <h3>Asr</h3>
-          </div>
-          <div class="time">
-            <i class="fa-regular fa-clock"></i>
-            <p>04:36 Pm</p>
-          </div>
-        </div>
-        <div class="box">
-          <div class="prayer">
-            <img src="Images/icons-sun.png" alt="" />
-            <h3>Maghrib</h3>
-          </div>
-          <div class="time">
-            <i class="fa-regular fa-clock"></i>
-            <p>04:36 Pm</p>
-          </div>
-        </div>
-        <div class="box">
-          <div class="prayer">
-            <img src="Images/icons8-moon-symbol-48.png" alt="" />
-            <h3>Isha</h3>
-          </div>
-          <div class="time">
-            <i class="fa-regular fa-clock"></i>
-            <p>04:36 Pm</p>
-          </div>
+        <div class="date-day">
+          <h3></h3>
+          <p></p>
         </div>
       </div>
+      <div class="times"></div>
     </div>
+
+    <!-- Axios Library -->
+    <script src="node_modules/axios/dist/axios.min.js"></script>
     <script type="module" src="script.js"></script>
   </body>
 </html>

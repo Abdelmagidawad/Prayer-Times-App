@@ -145,10 +145,15 @@ body {
         color: #5f5a6c;
       }
     }
-    p {
-      color: #5f5a6c;
-      font-weight: bold;
-      font-size: 1.2rem;
+    .date-day {
+      h3 {
+        font-size: 1.2rem;
+        color: #5f5a6c;
+      }
+      p {
+        font-weight: bold;
+        margin-top: -5px;
+      }
     }
   }
 
@@ -166,7 +171,10 @@ body {
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 0px 5px rgba(0, 0, 0, 0.1);
-
+      transition: 0.4s ease-in-out;
+      &:hover {
+        transform: translateY(-5px);
+      }
       .prayer,
       .time {
         display: flex;
@@ -224,6 +232,9 @@ body {
       button {
         padding: 15px;
       }
+    }
+    & .sec-city-date {
+      padding: 10px;
     }
   }
 }
