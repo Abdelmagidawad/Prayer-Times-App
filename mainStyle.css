@@ -175,6 +175,10 @@ body {
       &:hover {
         transform: translateY(-5px);
       }
+      &.highlight {
+        transform: translateY(-5px);
+        border: 2px solid #00bcd4;
+      }
       .prayer,
       .time {
         display: flex;

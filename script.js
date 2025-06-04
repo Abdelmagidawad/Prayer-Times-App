@@ -44,9 +44,7 @@ btnGetTimes.addEventListener("click", () => {
     getPrayerTimes(input.value);
   } else {
     // TODO: handel alert to user not enter city
-    // test
-    alert("Please enter a city");
-    // test
+    alert("Please enter a city name ");
   }
 });
 
@@ -58,15 +56,28 @@ async function getPrayerTimes(cityName) {
     country: "EGY",
     city: cityName,
   };
+
   try {
     let response = await axios.get("https://api.aladhan.com/v1/timingsByCity", {
       params: params,
     });
 
+    const returnedCity = response.data.data.meta.timezone;
+    // Check if the returned timezone includes the city name
+    if (
+      !returnedCity.toLowerCase().includes(cityName.toLowerCase()) &&
+      cityName.length > 2
+    ) {
+      // TODO: handel alert it
+      alert("City not found. Please enter a valid city name");
+      return;
+    }
+
     changePrayerTimesByCity(response, cityName);
   } catch (error) {
-    // TODO: to handel alert to request failed
     console.log(error);
+    // TODO: handel alert to request fail
+    alert("City not found. Please enter a valid city name");
   }
 }
 
@@ -89,6 +100,8 @@ function changePrayerTimesByCity(response, cityName) {
       ).innerHTML = `${formattedTime}`;
     }
   });
+
+  highlightNextPrayer(timings);
 }
 
 function hourFormat(timeStr) {
@@ -100,4 +113,34 @@ function hourFormat(timeStr) {
   const hourFormatted = hour.toString().padStart(2, "0");
 
   return `${hourFormatted}:${minute} ${period}`;
+}
+
+function highlightNextPrayer(timings) {
+  const now = new Date();
+
+  let upcomingPrayer = null;
+  let minDiff = Infinity;
+
+  prayers.forEach((prayer) => {
+    const time = timings[prayer]; // e.g., "14:50"
+    const [hour, minute] = time.split(":").map(Number);
+    const prayerTime = new Date();
+    prayerTime.setHours(hour, minute, 0, 0);
+
+    const diff = prayerTime - now;
+
+    if (diff > 0 && diff < minDiff) {
+      minDiff = diff;
+      upcomingPrayer = prayer;
+    }
+  });
+
+  if (upcomingPrayer) {
+    document.querySelectorAll(".box").forEach((box) => {
+      box.classList.remove("highlight");
+    });
+
+    const nextBox = document.getElementById(upcomingPrayer);
+    nextBox.classList.add("highlight");
+  }
 }
