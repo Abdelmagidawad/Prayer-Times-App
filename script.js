@@ -42,16 +42,45 @@ builtStructurePrayers(prayers);
 btnGetTimes.addEventListener("click", () => {
   if (input.value !== "") {
     getPrayerTimes(input.value);
+    input.value = "";
   } else {
-    // TODO: handel alert to user not enter city
-    alert("Please enter a city name ");
+    Alert("Please enter a city name ");
   }
 });
 
-// **********
-// **********
-// **********
 async function getPrayerTimes(cityName) {
+  const egyptianCities = [
+    "cairo",
+    "alexandria",
+    "giza",
+    "luxor",
+    "aswan",
+    "port said",
+    "suez",
+    "ismailia",
+    "fayoum",
+    "zagazig",
+    "banha",
+    "tanta",
+    "mansoura",
+    "damietta",
+    "kafr el-sheikh",
+    "beni suef",
+    "minya",
+    "assiut",
+    "sohag",
+    "qena",
+    "damanhur",
+    "shibin el kom",
+    "matrouh",
+    "arish",
+    "hurghada",
+    "el tor",
+    "new cairo",
+  ];
+
+  const normalizedCity = cityName.trim().toLowerCase();
+
   let params = {
     country: "EGY",
     city: cityName,
@@ -62,22 +91,15 @@ async function getPrayerTimes(cityName) {
       params: params,
     });
 
-    const returnedCity = response.data.data.meta.timezone;
-    // Check if the returned timezone includes the city name
-    if (
-      !returnedCity.toLowerCase().includes(cityName.toLowerCase()) &&
-      cityName.length > 2
-    ) {
-      // TODO: handel alert it
-      alert("City not found. Please enter a valid city name");
+    if (!egyptianCities.includes(normalizedCity)) {
+      Alert("City not found. Please enter a valid city name");
       return;
     }
 
     changePrayerTimesByCity(response, cityName);
   } catch (error) {
+    Alert("City not found. Please enter a valid city name");
     console.log(error);
-    // TODO: handel alert to request fail
-    alert("City not found. Please enter a valid city name");
   }
 }
 
@@ -144,3 +166,28 @@ function highlightNextPrayer(timings) {
     nextBox.classList.add("highlight");
   }
 }
+
+function Alert(massage) {
+  let contNotification = document.querySelector(".notification");
+  let not = document.createElement("div");
+  not.classList.add("not");
+
+  not.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>
+              <p>${massage}</p>`;
+  contNotification.append(not);
+
+  setTimeout(() => removeNotAlert(not), 3000);
+}
+
+function removeNotAlert(notElement) {
+  notElement.classList.add("hide");
+  setTimeout(() => notElement.remove(), 300);
+}
+
+// loader
+window.addEventListener("load", () => {
+  let loader = document.querySelector(".app-loader");
+  setTimeout(() => {
+    loader.classList.add("hidden");
+  }, 1.5);
+});
