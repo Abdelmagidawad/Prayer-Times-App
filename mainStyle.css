@@ -24,35 +24,6 @@ body {
   opacity: 0.8;
 }
 
-.language {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  font-size: 1rem;
-  font-weight: bold;
-  > div {
-    cursor: pointer;
-    display: none;
-    padding: 0px 5px;
-    border-radius: 5px;
-    transition: 0.3s;
-    &:hover {
-      border: 1px solid #09b6e4;
-    }
-    /*  */
-    &.active {
-      display: block;
-    }
-    /*  */
-  }
-  i {
-    color: #09b6e4;
-  }
-  span {
-    color: #fff;
-    opacity: 0.9;
-  }
-}
 .nav {
   box-shadow: 0 0px 5px rgba(0, 0, 0, 0.1);
 
