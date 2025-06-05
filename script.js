@@ -1,6 +1,7 @@
 let btnGetTimes = document.querySelector(".sec-city button");
 let input = document.querySelector(".sec-city input");
 let timesContainer = document.querySelector(".times");
+let containerCity = document.querySelector(".city >h3");
 
 let prayers = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
@@ -38,6 +39,41 @@ function changeIcone(prayer) {
 }
 
 builtStructurePrayers(prayers);
+
+checkLocalStorage(containerCity);
+
+function checkLocalStorage(containerCity) {
+  const savedCity = localStorage.getItem("city");
+  const savedData = localStorage.getItem("prayerData");
+
+  if (savedCity && savedData) {
+    containerCity.innerHTML = `${savedCity[0].toUpperCase()}${savedCity.slice(
+      1
+    )}`;
+    const parsedData = JSON.parse(savedData);
+    updateUIFromSavedData(parsedData, savedCity);
+  }
+}
+
+function updateUIFromSavedData(data, cityName) {
+  let timings = data.timings;
+  let readableDate = data.date.readable;
+  let weekDay = data.date.gregorian.weekday.en;
+
+  document.querySelector(".date-day >h3").innerHTML = weekDay;
+  document.querySelector(".date-day >p").innerHTML = readableDate;
+
+  Object.keys(timings).forEach((prayer) => {
+    if (prayers.includes(prayer)) {
+      const formattedTime = hourFormat(timings[prayer]);
+      document.querySelector(
+        `#${prayer} .time p`
+      ).innerHTML = `${formattedTime}`;
+    }
+  });
+
+  highlightNextPrayer(timings);
+}
 
 btnGetTimes.addEventListener("click", () => {
   if (input.value !== "") {
@@ -95,6 +131,9 @@ async function getPrayerTimes(cityName) {
       Alert("City not found. Please enter a valid city name");
       return;
     }
+
+    localStorage.setItem("city", cityName);
+    localStorage.setItem("prayerData", JSON.stringify(response.data.data));
 
     changePrayerTimesByCity(response, cityName);
   } catch (error) {
@@ -190,4 +229,13 @@ window.addEventListener("load", () => {
   setTimeout(() => {
     loader.classList.add("hidden");
   }, 1.5);
+});
+
+// Autoplay Audio
+window.addEventListener("load", () => {
+  const audio = document.getElementById("autoAudio");
+  audio.play();
+  audio.play().catch((err) => {
+    console.log("Autoplay blocked by browser:", err);
+  });
 });
