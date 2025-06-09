@@ -40,11 +40,11 @@ function changeIcone(prayer) {
 
 builtStructurePrayers(prayers);
 
-checkLocalStorage(containerCity);
+checkSessionStorage(containerCity);
 
-function checkLocalStorage(containerCity) {
-  const savedCity = localStorage.getItem("city");
-  const savedData = localStorage.getItem("prayerData");
+function checkSessionStorage(containerCity) {
+  const savedCity = sessionStorage.getItem("city");
+  const savedData = sessionStorage.getItem("prayerData");
 
   if (savedCity && savedData) {
     containerCity.innerHTML = `${savedCity[0].toUpperCase()}${savedCity.slice(
@@ -132,8 +132,8 @@ async function getPrayerTimes(cityName) {
       return;
     }
 
-    localStorage.setItem("city", cityName);
-    localStorage.setItem("prayerData", JSON.stringify(response.data.data));
+    sessionStorage.setItem("city", cityName);
+    sessionStorage.setItem("prayerData", JSON.stringify(response.data.data));
 
     changePrayerTimesByCity(response, cityName);
   } catch (error) {
