@@ -79,6 +79,12 @@ body {
       padding: 1.2em 1.25em;
       background-color: #fff;
       box-shadow: 0 0.93em 1.25em rgba(0, 0, 0, 0.1);
+      &::placeholder {
+        transition: 0.4s;
+      }
+      &:focus::placeholder {
+        opacity: 0;
+      }
     }
     button {
       cursor: pointer;
