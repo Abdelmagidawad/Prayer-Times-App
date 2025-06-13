@@ -21,7 +21,8 @@ A simple and responsive web app that displays the 6 daily Islamic prayer times f
 ### 🧪 Postman Collection
 You can test the AlAdhan API manually using Postman
 
-###Demo
+### Demo
+https://prayer-times-v1.vercel.app/
 
 
 
